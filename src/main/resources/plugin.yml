@@ -1,0 +1,10 @@
+name: BrunetteKits
+version: ${project.version}
+main: xyz.paiva.brunettekits.BrunetteKits
+api-version: 1.15
+authors: [PillGP]
+commands:
+  kitadmin:
+    description: Access the kit admin GUI
+    aliases: [kadmin, ka]
+    permission: brunettekits.kitadmin
