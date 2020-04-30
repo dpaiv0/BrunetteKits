@@ -19,8 +19,8 @@ public class KitAdminCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         ThreeItemGui gui = new ThreeItemGui(player);
-
-        gui.setTitle("§6§lBrunetteKits Admin GUI")
+		
+		gui.setTitle("§6§lBrunetteKits Admin GUI")
                 .addItem(new Item("§6§lCreate a Kit", 1, 12, Material.NAME_TAG, ""))
                 .addItem(new Item("§6§lEdit a Kit", 1, 13, Material.NAME_TAG, ""))
                 .addItem(new Item("§6§lDelete a Kit", 1, 14, Material.NAME_TAG, ""))
