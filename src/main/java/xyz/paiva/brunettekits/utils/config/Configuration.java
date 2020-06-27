@@ -1,4 +1,4 @@
-package xyz.paiva.brunettekits.Utils;
+package xyz.paiva.brunettekits.utils.config;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -19,13 +19,13 @@ public class Configuration {
 
     public Configuration(String fileName) {
         // Let's first create the plugin folder, if inexistent.
-        if (!BrunetteKits.getPlugin().getDataFolder().exists()) {
+        if (!BrunetteKits.getInstance().getDataFolder().exists()) {
             try {
-                boolean dirCreated = BrunetteKits.getPlugin().getDataFolder().mkdir();
+                boolean dirCreated = BrunetteKits.getInstance().getDataFolder().mkdir();
                 if (!dirCreated) {
                     getLogger().severe("Unable to create the data folder for the plugin.");
                     getLogger().severe("Please, create a data folder with the plugin's name and restart the server.");
-                    getPluginManager().disablePlugin(BrunetteKits.getPlugin());
+                    getPluginManager().disablePlugin(BrunetteKits.getInstance());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -33,7 +33,7 @@ public class Configuration {
         }
 
         // And now, the configuration file.
-        file = new File(BrunetteKits.getPlugin().getDataFolder(), fileName + ".yml");
+        file = new File(BrunetteKits.getInstance().getDataFolder(), fileName + ".yml");
 
         // Let's verify that it exists, and can be writable to disk.
         if (file.exists()) {
@@ -51,7 +51,7 @@ public class Configuration {
     }
 
     public <Type> Type get(String path) {
-        return (Type) config.get(path);
+        return (Type) config.get(path).getClass();
     }
 
     public void set(String path, java.io.Serializable value) {

@@ -1,4 +1,4 @@
-package xyz.paiva.brunettekits.Utils;
+package xyz.paiva.brunettekits.utils;
 
 import org.bukkit.OfflinePlayer;
 
@@ -7,6 +7,7 @@ import java.util.UUID;
 import static org.bukkit.Bukkit.getServer;
 
 public class UuidConverter {
+
     public static UUID convert(String playerName) {
         // Since we can get *any* player, we have to get an OfflinePlayer object, instead of a Player object.
         // But since 2015, Mojang has implemented username changes, so we need to use UUIDs.
