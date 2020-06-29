@@ -1,4 +1,4 @@
-package xyz.paiva.brunettekits.Utils;
+package xyz.paiva.brunettekits.utils.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,11 +11,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import xyz.paiva.brunettekits.Structures.Item;
+import xyz.paiva.brunettekits.prototypes.impl.InventoryItem;
 
 import java.util.Arrays;
-
-import static org.bukkit.Bukkit.getLogger;
 
 public class InventoryHelper implements InventoryHolder, Listener {
     private final Inventory inventory;
@@ -24,7 +22,7 @@ public class InventoryHelper implements InventoryHolder, Listener {
         inventory = Bukkit.createInventory(this, slots, name);
     }
 
-    public void addItem(Item item) {
+    public void addItem(InventoryItem item) {
         // Required Parameters: Name, Amount, Slot, Item, Lore...
         inventory.setItem(item.getSlot(), createGuiItem(item.getName(), item.getAmount(), item.getType(), item.getLore()));
     }

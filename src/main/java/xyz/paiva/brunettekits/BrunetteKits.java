@@ -1,23 +1,20 @@
 package xyz.paiva.brunettekits;
 
-import com.sun.org.apache.xpath.internal.objects.XObject;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import xyz.paiva.brunettekits.Commands.KitAdminCommand;
-import xyz.paiva.brunettekits.Utils.Configuration;
-import xyz.paiva.brunettekits.Utils.InventoryHelper;
+import xyz.paiva.brunettekits.commands.KitAdminCommand;
+import xyz.paiva.brunettekits.listeners.ExecutorListener;
+import xyz.paiva.brunettekits.listeners.RegisterListener;
+import xyz.paiva.brunettekits.utils.config.Configuration;
+import xyz.paiva.brunettekits.utils.inventory.InventoryHelper;
 
 import java.util.Objects;
 
 
 public final class BrunetteKits extends JavaPlugin {
 
-    private static BrunetteKits plugin;
-
     @Override
     public void onEnable() {
-        plugin = this;
-
         getLogger().info("Initializing main config...");
         try {
             Configuration.MainConfig = new Configuration("config");
@@ -30,16 +27,17 @@ public final class BrunetteKits extends JavaPlugin {
         try {
             Objects.requireNonNull(this.getCommand("kitadmin")).setExecutor(new KitAdminCommand());
             getLogger().info("Commands have been loaded successfully!");
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
-        getLogger().info("Registering events...");
-        try {
-            getServer().getPluginManager().registerEvents(new InventoryHelper(9, ""), this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        getLogger().info("Registering listeners...");
+        getServer().getPluginManager().registerEvents(new InventoryHelper(9, ""), this);
+        getServer().getPluginManager().registerEvents(new ExecutorListener(), this);
+        getServer().getPluginManager().registerEvents(new RegisterListener(), this);
+
+        getLogger().info("Loading kits...");
+        new KitLoader(this).load();
 
         getLogger().info("BrunetteKits has been loaded successfully!");
     }
@@ -49,7 +47,7 @@ public final class BrunetteKits extends JavaPlugin {
         getLogger().info("BrunetteKits has been unloaded successfully!");
     }
 
-    public static BrunetteKits getPlugin() {
-        return plugin;
+    public static BrunetteKits getInstance() {
+        return getPlugin(BrunetteKits.class);
     }
 }
